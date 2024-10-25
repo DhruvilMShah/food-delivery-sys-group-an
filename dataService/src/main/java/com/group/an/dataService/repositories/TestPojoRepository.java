@@ -1,4 +1,4 @@
-package com.group.an.dataService;
+package com.group.an.dataService.repositories;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import com.group.an.dataService.models.TestPojo;
 
