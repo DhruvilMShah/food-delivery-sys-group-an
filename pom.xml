@@ -14,7 +14,11 @@
 	<packaging>pom</packaging>
 	<name>foodDelivery</name>
 	<description>App that delivers food</description>
-	
+
+	<modules>
+		<module>dataService</module>
+		<module>restaurantService</module>
+	</modules>
 
 	<url/>
 	
@@ -57,6 +61,17 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>repackage</id>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+						<configuration>
+							<attach>false</attach>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

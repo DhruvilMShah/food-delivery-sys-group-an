@@ -4,13 +4,12 @@ package com.group.an.restaurantService;
 import com.group.an.dataService.models.Restaurants;
 import com.group.an.dataService.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 // Annotation 
-@Controller
+@RestController
 // Main class 
 public class RestaurantController { 
 
