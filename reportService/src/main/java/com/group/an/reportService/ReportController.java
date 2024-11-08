@@ -18,6 +18,7 @@ public class ReportController {
 	// Method 
 	public String helloFromReport() 
 	{ 
-		return "helloFromReport"; 
+		return "helloFromReport";
+		// sample 
 	} 
 }
