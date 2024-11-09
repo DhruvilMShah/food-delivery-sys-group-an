@@ -103,7 +103,7 @@
 	<modules>
 		<module>authService</module>
 		<module>customerService</module>
-<!--		<module>orderService</module>-->
+		<module>orderService</module>
 		<module>dataService</module>
 		<module>reportService</module>
 		<module>restaurantService</module>
