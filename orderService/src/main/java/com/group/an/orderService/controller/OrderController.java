@@ -1,13 +1,12 @@
 package com.group.an.orderService.controller;
 
-import com.group.an.authService.responseModel.AuthResponse;
-import com.group.an.dataService.models.DeliveryStatus;
-import com.group.an.dataService.models.Order;
-import com.group.an.dataService.models.OrderStatus;
+import com.group.an.dataLibrary.models.DeliveryStatus;
+import com.group.an.dataLibrary.models.Order;
 import com.group.an.orderService.exception.ResourceNotFoundException;
 import com.group.an.orderService.requestModel.DeliveryStatusUpdateRequest;
 import com.group.an.orderService.requestModel.OrderRequest;
 import com.group.an.orderService.requestModel.OrderStatusUpdateRequest;
+import com.group.an.orderService.responseModel.ExceptionResponse;
 import com.group.an.orderService.responseModel.OrderAndDeliveryStatusResponse;
 import com.group.an.orderService.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -191,12 +190,12 @@ public class OrderController {
     @ExceptionHandler(Exception.class)
     @Operation(summary = "Handle exceptions", description = "Handle exceptions and return appropriate response",
             responses = {
-                    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = AuthResponse.class))),
-                    @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content(schema = @Schema(implementation = AuthResponse.class))),
-                    @ApiResponse(responseCode = "500", description = "Error occurred while Processing Request at the Server Side", content = @Content(schema = @Schema(implementation = AuthResponse.class)))
+                    @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "404", description = "Resource not found", content = @Content(schema = @Schema(implementation = ExceptionResponse.class))),
+                    @ApiResponse(responseCode = "500", description = "Error occurred while Processing Request at the Server Side", content = @Content(schema = @Schema(implementation = ExceptionResponse.class)))
             })
     public ResponseEntity<?> handleException(Exception exception) {
-        AuthResponse authResponse = AuthResponse.builder()
+        ExceptionResponse authResponse = ExceptionResponse.builder()
                 .status(exception instanceof BadCredentialsException  ? HttpStatus.UNAUTHORIZED.value() :
                         (exception instanceof ResourceNotFoundException ? HttpStatus.NOT_FOUND.value() :
                                 HttpStatus.INTERNAL_SERVER_ERROR.value())

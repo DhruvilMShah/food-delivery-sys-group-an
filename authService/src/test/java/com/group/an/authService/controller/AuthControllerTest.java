@@ -2,12 +2,11 @@ package com.group.an.authService.controller;
 
 import com.group.an.authService.requestModel.CustomerRegisterRequest;
 import com.group.an.authService.service.AuthService;
-import com.group.an.dataService.models.Role;
+import com.group.an.dataLibrary.models.Role;
 import com.group.an.authService.requestModel.LoginRequest;
 import com.group.an.authService.responseModel.AuthResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

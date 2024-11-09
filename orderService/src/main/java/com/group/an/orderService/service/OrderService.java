@@ -1,12 +1,12 @@
 package com.group.an.orderService.service;
 
-import com.group.an.authService.security.JwtTokenUtil;
-import com.group.an.dataService.models.*;
-import com.group.an.dataService.repositories.OrderRepository;
-import com.group.an.dataService.repositories.RestaurantRepository;
+import com.group.an.dataLibrary.models.*;
+import com.group.an.dataLibrary.repositories.OrderRepository;
+import com.group.an.dataLibrary.repositories.RestaurantRepository;
 import com.group.an.orderService.requestModel.OrderRequest;
 import com.group.an.orderService.responseModel.OrderAndDeliveryStatusResponse;
 import com.group.an.orderService.exception.ResourceNotFoundException;
+import com.group.an.securityLibrary.JwtTokenUtil;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import static com.group.an.dataService.models.DeliveryStatus.ACCEPTED;
-import static com.group.an.dataService.models.DeliveryStatus.DELIVERED;
+import static com.group.an.dataLibrary.models.DeliveryStatus.ACCEPTED;
+import static com.group.an.dataLibrary.models.DeliveryStatus.DELIVERED;
 
 @Service
 public class OrderService {

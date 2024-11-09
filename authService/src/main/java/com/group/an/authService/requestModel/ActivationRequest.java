@@ -1,6 +1,6 @@
 package com.group.an.authService.requestModel;
 
-import com.group.an.dataService.models.Role;
+import com.group.an.dataLibrary.models.Role;
 import lombok.*;
 
 @Builder

@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SecurityScheme(name = "jwtAuth", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
-@SpringBootApplication(scanBasePackages = {"com.group.an.dataService","com.group.an.orderService","com.group.an.authService"})
+@SpringBootApplication(scanBasePackages = {"com.group.an.dataLibrary","com.group.an.orderService","com.group.an.securityLibrary"})
 public class OrderServiceApplication {
 
 	public static void main(String[] args) {

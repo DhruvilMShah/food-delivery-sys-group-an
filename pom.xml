@@ -75,21 +75,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>repackage</id>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-						<configuration>
-							<attach>false</attach>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
@@ -103,10 +88,11 @@
 	<modules>
 		<module>authService</module>
 		<module>customerService</module>
-<!--		<module>orderService</module>-->
-		<module>dataService</module>
+		<module>orderService</module>
 		<module>reportService</module>
 		<module>restaurantService</module>
+		<module>dataLibrary</module>
+		<module>securityLibrary</module>
 	</modules>
 
 </project>

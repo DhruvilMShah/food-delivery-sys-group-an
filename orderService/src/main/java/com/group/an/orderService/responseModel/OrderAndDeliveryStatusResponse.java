@@ -1,7 +1,7 @@
 package com.group.an.orderService.responseModel;
 
-import com.group.an.dataService.models.DeliveryStatus;
-import com.group.an.dataService.models.OrderStatus;
+import com.group.an.dataLibrary.models.DeliveryStatus;
+import com.group.an.dataLibrary.models.OrderStatus;
 import lombok.*;
 
 @Builder

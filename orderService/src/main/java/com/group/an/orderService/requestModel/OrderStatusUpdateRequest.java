@@ -1,6 +1,6 @@
 package com.group.an.orderService.requestModel;
 
-import com.group.an.dataService.models.OrderStatus;
+import com.group.an.dataLibrary.models.OrderStatus;
 import lombok.*;
 
 @Builder

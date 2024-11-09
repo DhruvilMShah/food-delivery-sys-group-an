@@ -3,12 +3,12 @@ package com.group.an.authService.service;
 
 import com.group.an.authService.requestModel.*;
 import com.group.an.authService.responseModel.AuthResponse;
-import com.group.an.authService.security.JwtTokenUtil;
-import com.group.an.dataService.models.*;
-import com.group.an.dataService.repositories.AdminRepository;
-import com.group.an.dataService.repositories.CustomerRepository;
-import com.group.an.dataService.repositories.DeliveryPersonnelRepository;
-import com.group.an.dataService.repositories.RestaurantOwnerRepository;
+import com.group.an.dataLibrary.models.*;
+import com.group.an.dataLibrary.repositories.AdminRepository;
+import com.group.an.dataLibrary.repositories.CustomerRepository;
+import com.group.an.dataLibrary.repositories.DeliveryPersonnelRepository;
+import com.group.an.dataLibrary.repositories.RestaurantOwnerRepository;
+import com.group.an.securityLibrary.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;

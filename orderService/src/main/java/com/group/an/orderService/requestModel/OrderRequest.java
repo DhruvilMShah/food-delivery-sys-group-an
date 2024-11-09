@@ -1,6 +1,6 @@
 package com.group.an.orderService.requestModel;
 
-import com.group.an.dataService.models.OrderItem;
+import com.group.an.dataLibrary.models.OrderItem;
 import lombok.*;
 
 import java.util.List;

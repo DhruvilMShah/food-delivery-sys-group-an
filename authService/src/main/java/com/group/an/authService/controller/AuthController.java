@@ -3,7 +3,7 @@ package com.group.an.authService.controller;
 import com.group.an.authService.requestModel.*;
 import com.group.an.authService.responseModel.AuthResponse;
 import com.group.an.authService.service.AuthService;
-import com.group.an.dataService.models.Role;
+import com.group.an.dataLibrary.models.Role;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;

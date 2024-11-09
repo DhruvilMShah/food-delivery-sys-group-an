@@ -1,9 +1,9 @@
 package com.group.an.orderService.controller;
 
-import com.group.an.dataService.models.DeliveryStatus;
-import com.group.an.dataService.models.Order;
-import com.group.an.dataService.models.OrderItem;
-import com.group.an.dataService.models.OrderStatus;
+import com.group.an.dataLibrary.models.DeliveryStatus;
+import com.group.an.dataLibrary.models.Order;
+import com.group.an.dataLibrary.models.OrderItem;
+import com.group.an.dataLibrary.models.OrderStatus;
 import com.group.an.orderService.requestModel.DeliveryStatusUpdateRequest;
 import com.group.an.orderService.requestModel.OrderRequest;
 import com.group.an.orderService.requestModel.OrderStatusUpdateRequest;

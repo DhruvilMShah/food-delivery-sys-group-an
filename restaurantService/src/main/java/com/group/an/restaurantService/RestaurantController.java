@@ -1,9 +1,9 @@
 // Importing package in this code module 
 package com.group.an.restaurantService;
 // Importing required classes 
-import com.group.an.dataService.models.MenuItem;
-import com.group.an.dataService.models.Restaurant;
-import com.group.an.dataService.repositories.RestaurantRepository;
+import com.group.an.dataLibrary.models.MenuItem;
+import com.group.an.dataLibrary.models.Restaurant;
+import com.group.an.dataLibrary.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

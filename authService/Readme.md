@@ -24,7 +24,7 @@ To add security to your endpoints in your microservice, follow these steps:
 
 ```java
 @SecurityScheme(name = "jwtAuth", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
-@SpringBootApplication(scanBasePackages = {"com.group.an.dataService","com.group.an.orderService","com.group.an.authService"})
+@SpringBootApplication(scanBasePackages = {"com.group.an.dataLibrary","com.group.an.orderService","com.group.an.authService"})
 public class OrderServiceApplication {
 .....
 }

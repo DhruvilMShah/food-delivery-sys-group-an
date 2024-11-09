@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
 @SecurityScheme(name = "jwtAuth", scheme = "bearer", type = SecuritySchemeType.HTTP, in = SecuritySchemeIn.HEADER)
-@SpringBootApplication(scanBasePackages = {"com.group.an.authService","com.group.an.dataService"})
+@SpringBootApplication(scanBasePackages = {"com.group.an.authService","com.group.an.dataLibrary","com.group.an.securityLibrary"})
 public class AuthServiceApplication {
 
 	public static void main(String[] args) {
