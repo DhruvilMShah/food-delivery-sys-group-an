@@ -4,6 +4,7 @@ package com.group.an.restaurantService;
 import com.group.an.dataLibrary.models.MenuItem;
 import com.group.an.dataLibrary.models.Restaurant;
 import com.group.an.dataLibrary.repositories.RestaurantRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,26 +12,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 // Annotation
 @RestController
-// Main class
+@RequestMapping("/restaurants")
+@SecurityRequirement(name = "jwtAuth")
 public class RestaurantController {
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 
-	@GetMapping("/restaurants")
+	@GetMapping
 	public List<Restaurant> getAllRestaurants() {
 		return restaurantRepository.findAll();
 	}
 
-	@PostMapping("/restaurants")
+	@PostMapping
+	@PreAuthorize("hasRole('ADMIN')")
 	public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
 		return restaurantRepository.save(restaurant);
 	}
 
-	@GetMapping("/restaurants/{restaurantId}/menu")
+	@GetMapping("/{restaurantId}/menu")
 	public ResponseEntity<List<MenuItem>> getAllRestaurant(@PathVariable("restaurantId") Integer restaurantId) {
 		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
 		if (restaurant.isPresent()) {
@@ -40,7 +44,8 @@ public class RestaurantController {
 		}
 	}
 
-	@PostMapping("/restaurants/{restaurantId}/menu")
+	@PostMapping("/{restaurantId}/menu")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('RESTAURANT_OWNER')")
 	public ResponseEntity<Restaurant> addItemToMenuOfRestaurant(@RequestBody MenuItem item, @PathVariable("restaurantId") Integer restaurantId) {
 		// ToDo: Validate if restaurantId on the endpoint and the restaurantId of the logged in RestaurantOwner is same
 		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
@@ -58,7 +63,8 @@ public class RestaurantController {
 		}
 	}
 
-	@PostMapping("/restaurants/{restaurantId}/menu/{menuItemId}")
+	@PostMapping("/{restaurantId}/menu/{menuItemId}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('RESTAURANT_OWNER')")
 	public ResponseEntity<Restaurant> updateMenuItemOfRestaurant(@RequestBody MenuItem item,
 																  @PathVariable("restaurantId") Integer restaurantId,
 																  @PathVariable("menuItemId") Integer menuItemId) {
@@ -93,7 +99,8 @@ public class RestaurantController {
 		return existingMenuItems;
 	}
 
-	@DeleteMapping("/restaurants/{restaurantId}/menu/{menuItemId}")
+	@DeleteMapping("/{restaurantId}/menu/{menuItemId}")
+	@PreAuthorize("hasRole('ADMIN') or hasRole('RESTAURANT_OWNER')")
 	public ResponseEntity<Restaurant> deleteMenuItemOfRestaurant(@PathVariable("restaurantId") Integer restaurantId,
 																  @PathVariable("menuItemId") Integer menuItemId) {
 		// ToDo: Validate if restaurantId on the endpoint and the restaurantId of the logged in RestaurantOwner is same
