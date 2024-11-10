@@ -6,6 +6,7 @@ import com.group.an.dataService.models.Restaurant;
 import com.group.an.dataService.repositories.RestaurantRepository;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,44 +24,33 @@ public class RestaurantController {
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 
+	@Autowired
+	private RestaurantService restaurantService;
+
 	@GetMapping
-	public List<Restaurant> getAllRestaurants() {
-		return restaurantRepository.findAll();
+	public ResponseEntity<List<Restaurant>> getAllRestaurants() {
+		List<Restaurant> allRestaurants = restaurantService.getAllRestaurants();
+		return new ResponseEntity<>(allRestaurants, HttpStatus.OK);
 	}
 
 	@PostMapping
 	@PreAuthorize("hasRole('ADMIN')")
-	public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
-		return restaurantRepository.save(restaurant);
+	public ResponseEntity<Restaurant> addRestaurant(@RequestBody Restaurant restaurant) {
+		Restaurant newRestaurant = restaurantService.addRestaurant(restaurant);
+		return new ResponseEntity<>(newRestaurant, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{restaurantId}/menu")
 	public ResponseEntity<List<MenuItem>> getAllRestaurant(@PathVariable("restaurantId") Integer restaurantId) {
-		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-		if (restaurant.isPresent()) {
-			return ResponseEntity.ok(restaurant.get().getMenus());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		List<MenuItem> existingMenu = restaurantService.getAllRestaurant(restaurantId);
+		return new ResponseEntity<>(existingMenu, HttpStatus.OK);
 	}
 
 	@PostMapping("/{restaurantId}/menu")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('RESTAURANT_OWNER')")
 	public ResponseEntity<Restaurant> addItemToMenuOfRestaurant(@RequestBody MenuItem item, @PathVariable("restaurantId") Integer restaurantId) {
-		// ToDo: Validate if restaurantId on the endpoint and the restaurantId of the logged in RestaurantOwner is same
-		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-		if (restaurant.isPresent()) {
-			List<MenuItem> existingMenuItems = restaurant.get().getMenus();
-			if(existingMenuItems == null) {
-				existingMenuItems = new ArrayList<>();
-			}
-			existingMenuItems.add(item);
-			restaurant.get().setMenus(existingMenuItems);
-			restaurantRepository.save(restaurant.get());
-			return ResponseEntity.ok(restaurant.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		Restaurant restaurant = restaurantService.addItemToMenuOfRestaurant(item, restaurantId);
+		return new ResponseEntity<>(restaurant, HttpStatus.OK);
 	}
 
 	@PostMapping("/{restaurantId}/menu/{menuItemId}")
@@ -68,62 +58,15 @@ public class RestaurantController {
 	public ResponseEntity<Restaurant> updateMenuItemOfRestaurant(@RequestBody MenuItem item,
 																  @PathVariable("restaurantId") Integer restaurantId,
 																  @PathVariable("menuItemId") Integer menuItemId) {
-		// ToDo: Validate if restaurantId on the endpoint and the restaurantId of the logged in RestaurantOwner is same
-		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-		if (restaurant.isPresent()) {
-			List<MenuItem> existingMenuItems = restaurant.get().getMenus();
-
-			if(existingMenuItems == null) {
-				existingMenuItems = new ArrayList<>();
-				existingMenuItems.add(item);
-			}
-			else {
-				existingMenuItems = replaceExistingItem(existingMenuItems, menuItemId,item);
-			}
-			restaurant.get().setMenus(existingMenuItems);
-			restaurantRepository.save(restaurant.get());
-			return ResponseEntity.ok(restaurant.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
-	private List<MenuItem> replaceExistingItem(List<MenuItem> existingMenuItems, Integer menuItemId, MenuItem item) {
-		for(MenuItem existingItem : existingMenuItems) {
-			if(existingItem.getMenuItemId() == menuItemId) {
-				existingMenuItems.remove(existingItem);
-				existingMenuItems.add(item);
-				break;
-			}
-		}
-		return existingMenuItems;
+		Restaurant restaurant = restaurantService.updateMenuItemOfRestaurant(item, restaurantId, menuItemId);
+		return new ResponseEntity<>(restaurant, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{restaurantId}/menu/{menuItemId}")
 	@PreAuthorize("hasRole('ADMIN') or hasRole('RESTAURANT_OWNER')")
 	public ResponseEntity<Restaurant> deleteMenuItemOfRestaurant(@PathVariable("restaurantId") Integer restaurantId,
 																  @PathVariable("menuItemId") Integer menuItemId) {
-		// ToDo: Validate if restaurantId on the endpoint and the restaurantId of the logged in RestaurantOwner is same
-		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurantId);
-		if (restaurant.isPresent()) {
-			List<MenuItem> existingMenuItems = restaurant.get().getMenus();
-
-			if(existingMenuItems == null || existingMenuItems.isEmpty()) {
-				return ResponseEntity.notFound().build();
-			}
-			else {
-				for(MenuItem existingItem : existingMenuItems) {
-					if(existingItem.getMenuItemId() == menuItemId) {
-						existingMenuItems.remove(existingItem);
-						break;
-					}
-				}
-			}
-			restaurant.get().setMenus(existingMenuItems);
-			restaurantRepository.save(restaurant.get());
-			return ResponseEntity.ok(restaurant.get());
-		} else {
-			return ResponseEntity.notFound().build();
-		}
+		Restaurant restaurant = restaurantService.deleteMenuItemOfRestaurant(restaurantId, menuItemId);
+		return new ResponseEntity<>(restaurant, HttpStatus.OK);
 	}
 }
